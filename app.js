@@ -19,14 +19,15 @@ const reviewRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/users.js");
 const appReviewRoutes = require("./routes/appReviews");
 const destinationRoutes = require("./routes/destinations");
-
-const session = require("express-session");
 const flash = require('connect-flash');
 
 const dbUrl = process.env.DB_URL;
 
 // ---------------- MONGO SESSION STORE ----------------
+const session = require("express-session");
 const MongoStore = require("connect-mongo");
+
+console.log("DB_URL =", process.env.DB_URL); // IMPORTANT DEBUG
 
 const store = MongoStore.create({
     mongoUrl: process.env.DB_URL,
@@ -36,11 +37,6 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600,
 });
 
-store.on("error", (err) => {
-    console.log("SESSION STORE ERROR", err);
-});
-
-// ---------------- SESSION ----------------
 app.use(session({
     store: store,
     secret: process.env.SECRET,
