@@ -85,7 +85,8 @@ async function main() {
         console.log("✅ MongoDB Connected Successfully");
     } catch (err) {
         console.log("❌ MongoDB Connection Failed");
-        console.error(err);
+        console.log("Error Name:", err.name);
+        console.log("Error Message:", err.message);
     }
 }
 
