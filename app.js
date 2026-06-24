@@ -17,7 +17,7 @@ const User = require('./models/user.js');
 const listingRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/users.js");
-const appReviewRoutes = require("./routes/appreviews");
+const appReviewRoutes = require("./routes/appReviews");
 const destinationRoutes = require("./routes/destinations");
 
 const cookieParser = require('cookie-parser');
