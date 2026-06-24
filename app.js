@@ -21,25 +21,29 @@ const appReviewRoutes = require("./routes/appReviews");
 const destinationRoutes = require("./routes/destinations");
 const flash = require('connect-flash');
 
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DB_URL || process.env.ATLASDB_URL;
 
 // ---------------- MONGO SESSION STORE ----------------
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
-console.log("DB_URL =", process.env.DB_URL); // IMPORTANT DEBUG
+console.log("Resolved DB URL =", dbUrl);
 
 const store = MongoStore.create({
-    mongoUrl: process.env.DB_URL,
+    mongoUrl: dbUrl,
     crypto: {
         secret: process.env.SECRET,
     },
     touchAfter: 24 * 3600,
 });
 
+store.on("error", function (e) {
+    console.error("Session store error", e);
+});
+
 app.use(session({
     store: store,
-    secret: process.env.SECRET,
+    secret: process.env.SECRET || "thisshouldbeabettersecret",
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -82,12 +86,17 @@ app.use(express.json());
 console.log("DB URL exists:", !!dbUrl);
 
 async function main() {
+    if (!dbUrl) {
+        console.error("❌ No database URL provided. Set DB_URL or ATLASDB_URL in your environment.");
+        process.exit(1);
+    }
     try {
         await mongoose.connect(dbUrl);
         console.log("✅ MongoDB Connected Successfully");
     } catch (err) {
         console.log("❌ MongoDB Connection Failed");
         console.log(err.message);
+        process.exit(1);
     }
 }
 
