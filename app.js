@@ -21,14 +21,15 @@ const appReviewRoutes = require("./routes/appReviews");
 const destinationRoutes = require("./routes/destinations");
 
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 
 const dbUrl = process.env.DB_URL;
 
 // ---------------- MONGO SESSION STORE ----------------
+const MongoStore = require("connect-mongo");
+
 const store = MongoStore.create({
-    mongoUrl: dbUrl,
+    mongoUrl: process.env.DB_URL,
     crypto: {
         secret: process.env.SECRET,
     },
