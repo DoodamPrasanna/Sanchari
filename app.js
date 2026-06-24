@@ -116,7 +116,7 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
     let { status = 500, message = "Something went wrong!" } = err;
-    res.status(status).render("listings/error.ejs", { message });
+    res.status(status).render("Listings/errors.ejs", { message });
 });
 
 // ---------------- SERVER ----------------
