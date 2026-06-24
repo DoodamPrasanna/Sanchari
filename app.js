@@ -1,7 +1,7 @@
 if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
 }
-const dbUrl = process.env.ATLASDB_URL ;
+
 
 const express = require('express');
 const app = express();
@@ -25,8 +25,10 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 
+const dbUrl = process.env.ATLASDB_URL ;
+
 const store = MongoStore.create({
-    mongoUrl: dbUrl,
+    mongoUrl: process.env.ATLASDB_URL,
     crypto: {
         secret: process.env.SECRET,
     },
