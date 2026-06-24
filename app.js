@@ -77,14 +77,14 @@ app.use(methodOverride("_method"));
 app.engine('ejs', engine);
 app.use(express.json());
 
-console.log("DB URL exists:", !!process.env.ATLASDB_URL);
+console.log("DB URL exists:", !!dbUrl);
 
 async function main() {
     try {
         await mongoose.connect(dbUrl);
-        console.log("MongoDB Connected Successfully");
+        console.log("✅ MongoDB Connected Successfully");
     } catch (err) {
-        console.error("MongoDB Connection Error:");
+        console.log("❌ MongoDB Connection Failed");
         console.error(err);
     }
 }
