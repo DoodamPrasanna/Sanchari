@@ -1,6 +1,7 @@
 if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
 }
+const dbUrl = process.env.ATLASDB_URL ;
 
 const express = require('express');
 const app = express();
@@ -73,7 +74,7 @@ app.use(methodOverride("_method"));
 app.engine('ejs', engine);
 app.use(express.json());
 
-const dbUrl = process.env.ATLASDB_URL ;
+
 
 async function main() {
     await mongoose.connect(dbUrl);
