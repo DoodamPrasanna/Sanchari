@@ -25,28 +25,28 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 
-const dbUrl = process.env.ATLASDB_URL ;
+// const dbUrl = process.env.ATLASDB_URL ;
 
-const store = MongoStore.create({
-    mongoUrl: process.env.ATLASDB_URL,
-    crypto: {
-        secret: process.env.SECRET,
-    },
-    touchAfter: 24 * 3600,
-});
+// const store = MongoStore.create({
+//     mongoUrl: process.env.ATLASDB_URL,
+//     crypto: {
+//         secret: process.env.SECRET,
+//     },
+//     touchAfter: 24 * 3600,
+// });
 
-store.on("error", (err) =>{
-    console.log("ERROR IN MONGO SESSION STORE", err);
-});
+// store.on("error", (err) =>{
+//     console.log("ERROR IN MONGO SESSION STORE", err);
+// });
 
 const sessionOptions = {
-    secret : process.env.SECRET,
-    resave : false,
-    saveUninitialized : true,
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
-        expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge : 7 * 24 * 60 * 60 * 1000,
-        httpOnly : true,
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
     },
 };
 
