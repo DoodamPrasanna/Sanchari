@@ -27,18 +27,18 @@ const flash = require('connect-flash');
 
 const dbUrl = process.env.ATLASDB_URL ;
 
-const store = MongoStore.create({
-    mongoUrl: process.env.ATLASDB_URL,
-    crypto: {
-        secret: process.env.SECRET,
-    },
-    touchAfter: 24 * 3600,
-});
+// const store = MongoStore.create({
+//     mongoUrl: process.env.ATLASDB_URL,
+//     crypto: {
+//         secret: process.env.SECRET,
+//     },
+//     touchAfter: 24 * 3600,
+// });
 
 
-store.on("error", (err) =>{
-    console.log("ERROR IN MONGO SESSION STORE", err);
-});
+// store.on("error", (err) =>{
+//     console.log("ERROR IN MONGO SESSION STORE", err);
+// });
 
 const sessionOptions = {
     secret: process.env.SECRET,
@@ -77,30 +77,16 @@ app.use(methodOverride("_method"));
 app.engine('ejs', engine);
 app.use(express.json());
 
-
-
-// async function main() {
-//     await mongoose.connect(dbUrl);
-// }
-
-// main()
-//     .then(() => {
-//         console.log("connection successful");
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     })
-
-const dbUrl = process.env.ATLASDB_URL;
+console.log("DB URL exists:", !!process.env.ATLASDB_URL);
 
 async function main() {
-try {
-await mongoose.connect(dbUrl);
-console.log("MongoDB Connected Successfully");
-} catch (err) {
-console.error("MongoDB Connection Error:");
-console.error(err);
-}
+    try {
+        await mongoose.connect(dbUrl);
+        console.log("MongoDB Connected Successfully");
+    } catch (err) {
+        console.error("MongoDB Connection Error:");
+        console.error(err);
+    }
 }
 
 main();
