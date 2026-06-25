@@ -109,9 +109,13 @@ app.use("/", userRouter);
 app.use("/appreviews", appReviewRoutes);
 app.use("/destinations", destinationRoutes);
 
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
+
 // ---------------- ERROR HANDLING ----------------
 app.all("*", (req, res, next) => {
-    next(new ExpressError(404, "Page not found!"));
+    next(new ExpressError(404, "Page Not Found!"));
 });
 
 app.use((err, req, res, next) => {
