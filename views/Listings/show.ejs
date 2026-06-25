@@ -80,7 +80,7 @@
                                 <% for (let review of listing.reviews) { %>
                                     <div class="card review-card mb-3 ms-4 col-5">
                                         <div class="card-body">
-                                            <h5 class="card-title">@<%= review.author.username %></h5>
+                                            <h5 class="card-title"> @<%= review.author ? review.author.username : "Anonymous User" %></h5>
                                             <p class="starability-result card-text" data-rating=<%=review.rating %>></p>
                                             <p class="card-text"><%= review.comment %></p>
                                         </div>
