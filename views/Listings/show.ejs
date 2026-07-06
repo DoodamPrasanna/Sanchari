@@ -14,7 +14,7 @@
                     alt="listing_image">
                 <div class="card-body">
                     <p class="card-text mb-2">
-                    <h3>Owned by<%= listing.owner ? listing.owner.username : "Sanchari Host" %></h3><br>
+                    <h3>Owned by <%= listing.owner ? listing.owner.username : "Sanchari Host" %></h3><br>
                     <p>&#8377;<%= listing.price.toLocaleString("en-IN") %> / night </p>
                     <p>
                         <%= listing.location %>
